@@ -1,30 +1,23 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
   <router-view />
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=PT+Sans&display=swap");
 
-nav {
-  padding: 30px;
-}
+:root {
+  --color-accent-pink: #ef476f;
+  --color-bg: #f5f5f5;
+  --color-bg-input: #ffffff;
+  --color-accent-yellow: #f5ab00;
+  --color-accent-green: #06d6a0;
+  --color-accent-blue: #118ab2;
+  --color-font: #073b4c;
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+  font-family: "PT Sans", sans-serif;
+  color: var(--color-font);
 }
-
-nav a.router-link-exact-active {
-  color: #42b983;
+h1 {
+  font-family: "Bungee", cursive;
 }
 </style>
