@@ -12,11 +12,21 @@ export default { name: "LayoutHeader" };
 <style scoped>
 header {
   background-color: var(--color-accent-pink);
-  padding-block: 10px;
+  padding-block: 1rem;
+  text-align: center;
 }
 h1 {
   color: var(--color-bg);
   margin: 0;
-  text-align: center;
+  padding-top: 1rem;
+  font-size: 3em;
+  letter-spacing: 0.1em;
+  text-shadow: 1px 3px var(--color-accent-yellow),
+    3px 5px var(--color-accent-blue);
+}
+
+p {
+  font-size: 1.25em;
+  color: var(--color-bg);
 }
 </style>
