@@ -16,6 +16,10 @@
 
   font-family: "PT Sans", sans-serif;
   color: var(--color-font);
+  font-size: 18px;
+  max-width: 800px;
+  margin: auto;
+  background-color: var(--color-bg);
 }
 h1 {
   font-family: "Bungee", cursive;
