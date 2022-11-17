@@ -9,9 +9,10 @@
           v-model="todo.done"
           :id="'todo-done-' + todo.id"
         />
-        <label :for="'todo-done-' + todo.id">{{ todo.todo }}</label>
+        <label :for="'todo-done-' + todo.id">{{ todo.description }}</label>
       </li>
     </ul>
+    {{ todos }}
   </div>
 </template>
 
@@ -20,15 +21,17 @@ export default {
   name: "ListTodos",
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          todo: "Spülen",
-          done: false,
-        },
-        { id: 2, todo: "Waschen", done: true },
-      ],
+      todos: [],
     };
+  },
+  created() {
+    this.getTodos();
+  },
+  methods: {
+    async getTodos() {
+      const response = await fetch("http://localhost:4730/todos");
+      this.todos = await response.json();
+    },
   },
 };
 </script>
