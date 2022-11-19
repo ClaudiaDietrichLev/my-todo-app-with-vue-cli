@@ -1,6 +1,8 @@
 <template>
   <div class="home">
     <LayoutHeader />
+    <AddTodo></AddTodo>
+
     <ListTodos />
   </div>
 </template>
@@ -10,11 +12,10 @@
 import LayoutHeader from "@/components/LayoutHeader.vue";
 import ListTodos from "@/components/ListTodos.vue";
 
+import AddTodo from "@/components/AddTodo.vue";
+
 export default {
   name: "HomeView",
-  components: {
-    LayoutHeader,
-    ListTodos,
-  },
+  components: { LayoutHeader, ListTodos, AddTodo },
 };
 </script>
