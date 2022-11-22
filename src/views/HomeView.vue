@@ -2,15 +2,16 @@
   <div class="home">
     <LayoutHeader />
     <AddTodo />
-    <div class="container">
-      <MainButton
-        @click="deleteDoneTodos()"
-        buttonTitle="Delete done todos"
-        buttonStyle="button-delete"
-      />
+    <div class="todosSection">
+      <div class="filters">
+        <MainButton
+          @click="deleteDoneTodos()"
+          buttonTitle="Delete done todos"
+          buttonStyle="button-delete"
+        />
+      </div>
+      <ListTodos :todos="todos" />
     </div>
-
-    <ListTodos :todos="this.todos" />
   </div>
 </template>
 
@@ -27,35 +28,24 @@ export default {
   data() {
     return {
       todos: [],
-      changedTodos: false,
     };
   },
   created() {
     this.getAllTodos();
   },
-  watch: {
-    changedTodos(oldValue) {
-      if (oldValue) {
-        this.getAllTodos();
-      }
-    },
-  },
+
   methods: {
     deleteDoneTodos() {
       const doneTodos = this.todos.filter((todo) => todo.done === true);
-      for (let doneTodo of doneTodos) {
-        this.deleteTodo(doneTodo);
-      }
-      if (doneTodos.length > 0) {
-        this.changedTodos = true;
-      }
-      return this.changedTodos;
+      const deleteRequests = doneTodos.map(this.deleteTodo);
+      Promise.all(deleteRequests).then(() => {
+        this.getAllTodos();
+      });
     },
     async deleteTodo(todo) {
-      const response = await fetch("http://localhost:4730/todos/" + todo.id, {
+      return fetch("http://localhost:4730/todos/" + todo.id, {
         method: "delete",
       });
-      return response;
     },
 
     async getAllTodos() {
@@ -67,9 +57,18 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.filters {
   display: flex;
   justify-content: center;
   margin-block: 1em;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .todosSection {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: auto 1fr;
+  }
 }
 </style>
