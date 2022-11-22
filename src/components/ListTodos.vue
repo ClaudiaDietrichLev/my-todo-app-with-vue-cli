@@ -19,19 +19,8 @@
 <script>
 export default {
   name: "ListTodos",
-  data() {
-    return {
-      todos: [],
-    };
-  },
-  created() {
-    this.getTodos();
-  },
-  methods: {
-    async getTodos() {
-      const response = await fetch("http://localhost:4730/todos");
-      this.todos = await response.json();
-    },
+  props: {
+    todos: [],
   },
 };
 </script>
@@ -57,7 +46,7 @@ li {
   color: var(--color-bg-input);
   accent-color: var(--color-accent-green);
   outline: 1px solid var(--color-accent-yellow);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden='true' focusable='false' %3E%3Cpath fill='none' stroke='white' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /%3E%3C/svg%3E");
+  _background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden='true' focusable='false' %3E%3Cpath fill='none' stroke='white' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /%3E%3C/svg%3E");
 }
 
 .checkboxTodo + label {
