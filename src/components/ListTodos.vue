@@ -21,7 +21,12 @@
 export default {
   name: "ListTodos",
   props: {
-    todos: [],
+    todos: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
   },
   methods: {
     async updateTodo(todo) {

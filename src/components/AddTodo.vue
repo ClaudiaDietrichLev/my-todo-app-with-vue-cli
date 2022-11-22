@@ -9,7 +9,7 @@
       placeholder="add a new Todo"
     />
     <MainButton
-      @click="addNewTodo()"
+      @click.prevent="addNewTodo()"
       buttonTitle="Add"
       buttonStyle="button-add"
     />
