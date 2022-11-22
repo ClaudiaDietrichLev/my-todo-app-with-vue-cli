@@ -33,7 +33,6 @@ export default {
   },
   methods: {
     async addNewTodo() {
-      this.$event.preventDefault();
       (this.newTodo.description = this.textTodo),
         (this.newTodo.done = this.stateTodo);
       const response = await fetch("http://localhost:4730/todos", {
