@@ -51,15 +51,22 @@ li {
   margin-right: 3em;
   padding-block: 0.5em;
   padding-inline: 0.5em;
-
+  border: 0.1em solid var(--color-bg);
   margin-bottom: 1em;
+}
+
+li:focus-within,
+li:active,
+li:hover {
+  box-shadow: 3px 3px 0 var(--color-accent-pink);
+  border: 0.1em solid var(--color-accent-yellow);
 }
 
 .checkboxTodo:checked {
   color: var(--color-bg-input);
   accent-color: var(--color-accent-green);
   outline: 1px solid var(--color-accent-yellow);
-  _background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden='true' focusable='false' %3E%3Cpath fill='none' stroke='white' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden='true' focusable='false' %3E%3Cpath fill='none' stroke='white' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' /%3E%3C/svg%3E");
 }
 
 .checkboxTodo + label {
