@@ -41,15 +41,17 @@ ul {
   display: flex;
   flex-direction: column;
   margin: auto;
+  padding: 0;
+  margin-left: 3em;
 }
 li {
   list-style: none;
   background-color: var(--color-bg-input);
   border-radius: 5px;
-
+  margin-right: 3em;
   padding-block: 0.5em;
   padding-inline: 0.5em;
-  margin-right: 3em;
+
   margin-bottom: 1em;
 }
 

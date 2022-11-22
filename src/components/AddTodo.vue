@@ -6,6 +6,7 @@
       class="input-todo-description"
       type="text"
       v-model="textTodo"
+      placeholder="add a new Todo"
     />
     <MainButton
       @click="addNewTodo()"
@@ -32,6 +33,7 @@ export default {
   },
   methods: {
     async addNewTodo() {
+      this.$event.preventDefault();
       (this.newTodo.description = this.textTodo),
         (this.newTodo.done = this.stateTodo);
       const response = await fetch("http://localhost:4730/todos", {
@@ -51,16 +53,24 @@ input {
   background-color: var(--color-bg-input);
   border-radius: 5px;
   padding: 0.5em;
-  width: auto;
+  width: 100%;
+  border: 2px solid transparent;
 }
 
 form {
   padding-top: 1em;
-  display: grid;
-  grid-template-columns: auto max-content;
+  display: flex;
   gap: 1em;
   margin: auto;
   justify-content: center;
-  align-items: center;
+  margin-inline: 3em;
+}
+
+input::placeholder {
+  color: var(--color-accent-pink);
+}
+
+input:focus {
+  border: 2px solid var(--color-accent-yellow);
 }
 </style>
