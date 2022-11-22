@@ -8,6 +8,7 @@
           class="checkboxTodo"
           v-model="todo.done"
           :id="'todo-done-' + todo.id"
+          @change="updateTodo(todo)"
         />
         <label :for="'todo-done-' + todo.id">{{ todo.description }}</label>
       </li>
@@ -21,6 +22,16 @@ export default {
   name: "ListTodos",
   props: {
     todos: [],
+  },
+  methods: {
+    async updateTodo(todo) {
+      const response = await fetch("http://localhost:4730/todos/" + todo.id, {
+        method: "put",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(todo),
+      });
+      todo = await response.json();
+    },
   },
 };
 </script>
