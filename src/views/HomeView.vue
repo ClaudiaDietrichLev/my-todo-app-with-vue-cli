@@ -20,7 +20,7 @@
 
     <div class="todo-section">
       <div class="filters">
-        <div class="filter-container" @change="updateFilter">
+        <div class="filter-container">
           <div class="radio-button">
             <input
               type="radio"
@@ -28,7 +28,6 @@
               name="filter"
               id="filter-all"
               value="all"
-              @change="updateFilter"
             />
             <label for="filter-all">All</label>
           </div>
@@ -39,7 +38,6 @@
               name="filter"
               id="filter-open"
               value="open"
-              @change="updateFilter"
             />
             <label for="filter-open">Open</label>
           </div>
@@ -50,7 +48,6 @@
               name="filter"
               id="filter-done"
               value="done"
-              @change="updateFilter"
             />
             <label for="filter-done">Done</label>
           </div>
@@ -182,7 +179,7 @@ form {
   justify-content: start;
   margin-block: 1em;
   align-items: center;
-  margin: 3em;
+  margin-inline: 3em;
 }
 
 .filter-container {
