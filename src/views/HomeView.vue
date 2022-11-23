@@ -17,6 +17,9 @@
         buttonStyle="button-add"
       />
     </form>
+    <div class="error-todo" v-if="textTodo.length < 5">
+      at least 5 characters please
+    </div>
 
     <div class="todo-section">
       <div class="filters">
@@ -202,5 +205,10 @@ form {
     flex-direction: column;
     justify-content: start;
   }
+}
+.error-todo {
+  color: var(--color-accent-pink);
+  text-align: center;
+  font-size: 0.5em;
 }
 </style>
