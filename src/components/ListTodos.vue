@@ -10,16 +10,18 @@
           :id="'todo-done-' + todo.id"
           @change="updateTodo(todo)"
         />
-        <label :for="'todo-done-' + todo.id">{{ todo.description }}</label>
+        <label :class="{ donetodo: todo.done }" :for="'todo-done-' + todo.id">{{
+          todo.description
+        }}</label>
       </li>
     </ul>
-    {{ todos }}
   </div>
 </template>
 
 <script>
 export default {
   name: "ListTodos",
+
   props: {
     todos: {
       type: Array,
@@ -28,6 +30,7 @@ export default {
       },
     },
   },
+
   methods: {
     async updateTodo(todo) {
       const response = await fetch("http://localhost:4730/todos/" + todo.id, {
@@ -47,13 +50,16 @@ ul {
   flex-direction: column;
   margin: auto;
   padding: 0;
-  margin-left: 3em;
+
+  list-style-position: unset;
 }
 li {
   list-style: none;
+  all: unset;
+  margin: 0;
   background-color: var(--color-bg-input);
   border-radius: 5px;
-  margin-right: 3em;
+
   padding-block: 0.5em;
   padding-inline: 0.5em;
   border: 0.1em solid var(--color-bg);
@@ -88,5 +94,8 @@ li:hover {
   position: absolute;
   width: 1px;
   white-space: nowrap;
+}
+.donetodo {
+  text-decoration: line-through;
 }
 </style>
