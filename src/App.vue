@@ -4,7 +4,11 @@
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Bungee&family=PT+Sans&display=swap");
-
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
 :root {
   --color-accent-pink: #ef476f;
   --color-bg: #f5f5f5;

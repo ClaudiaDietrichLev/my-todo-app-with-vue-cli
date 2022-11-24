@@ -1,67 +1,71 @@
 <template>
   <div class="home">
     <LayoutHeader />
-    <form>
-      <label for="add-todo" class="visually-hidden">Add a new todo</label>
-      <input
-        id="add-todo"
-        class="input-todo-description"
-        type="text"
-        v-model="textTodo"
-        placeholder="add a new Todo"
-        ref="description"
-      />
-      <MainButton
-        @click.prevent="addNewTodo()"
-        buttonTitle="Add"
-        buttonStyle="button-add"
-      />
-    </form>
-    <div class="error-todo" v-if="textTodo.length < 5">
-      at least 5 characters please
-    </div>
-
-    <div class="todo-section">
-      <div class="filters">
-        <div class="filter-container">
-          <div class="radio-button">
-            <input
-              type="radio"
-              v-model="filter"
-              name="filter"
-              id="filter-all"
-              value="all"
-            />
-            <label for="filter-all">All</label>
-          </div>
-          <div class="radio-button">
-            <input
-              type="radio"
-              v-model="filter"
-              name="filter"
-              id="filter-open"
-              value="open"
-            />
-            <label for="filter-open">Open</label>
-          </div>
-          <div class="radio-button">
-            <input
-              type="radio"
-              v-model="filter"
-              name="filter"
-              id="filter-done"
-              value="done"
-            />
-            <label for="filter-done">Done</label>
-          </div>
-        </div>
-        <MainButton
-          @click="deleteDoneTodos()"
-          buttonTitle="Delete done todos"
-          buttonStyle="button-delete"
+    <div class="todo-area">
+      <form @submit.prevent="addNewTodo()">
+        <label for="add-todo" class="visually-hidden">Add a new todo</label>
+        <input
+          id="add-todo"
+          class="input-todo-description"
+          type="text"
+          v-model="textTodo"
+          placeholder="add a new Todo"
+          ref="description"
+          minlength="5"
         />
+        <MainButton buttonTitle="Add" buttonStyle="button-add" />
+      </form>
+      <!--
+        TODO: refactoring
+      -->
+      <div class="error-todo">
+        <span v-if="textTodo.length > 0 && textTodo.length < 5">
+          at least 5 characters please
+        </span>
+        <span v-else>&nbsp;</span>
       </div>
-      <ListTodos :todos="todosToList" />
+      <div class="todo-section">
+        <div class="filters">
+          <div class="filter-container">
+            <div class="radio-button">
+              <input
+                type="radio"
+                v-model="filter"
+                name="filter"
+                id="filter-all"
+                value="all"
+              />
+              <label for="filter-all">All</label>
+            </div>
+            <div class="radio-button">
+              <input
+                type="radio"
+                v-model="filter"
+                name="filter"
+                id="filter-open"
+                value="open"
+              />
+              <label for="filter-open">Open</label>
+            </div>
+            <div class="radio-button">
+              <input
+                type="radio"
+                v-model="filter"
+                name="filter"
+                id="filter-done"
+                value="done"
+              />
+              <label for="filter-done">Done</label>
+            </div>
+          </div>
+          <MainButton
+            @click="deleteDoneTodos()"
+            buttonTitle="Delete done todos"
+            buttonStyle="button-delete"
+          />
+        </div>
+        <ListTodos :todos="filteredTodos" />
+      </div>
     </div>
   </div>
 </template>
@@ -82,23 +86,21 @@ export default {
       stateTodo: false,
       newTodo: {},
       filter: "all",
-      todosToList: [],
     };
   },
   created() {
     this.getAllTodos();
   },
-  watch: {
-    filter() {
+
+  computed: {
+    filteredTodos() {
+      let filteredTodos = this.todos;
       if (this.filter === "open") {
-        this.todosToList = this.todos.filter((todo) => todo.done === false);
+        filteredTodos = this.todos.filter((todo) => todo.done === false);
       } else if (this.filter === "done") {
-        this.todosToList = this.todos.filter((todo) => todo.done === true);
-      } else {
-        this.todosToList = this.todos.filter(
-          (todo) => todo.done === false || todo.done === true
-        );
+        filteredTodos = this.todos.filter((todo) => todo.done === true);
       }
+      return filteredTodos;
     },
   },
 
@@ -119,12 +121,6 @@ export default {
     async getAllTodos() {
       const response = await fetch("http://localhost:4730/todos");
       this.todos = await response.json();
-      this.todosToList = [];
-
-      // bessere Lösung?
-      for (let todo of this.todos) {
-        this.todosToList.push(todo);
-      }
     },
     addNewTodo() {
       this.newTodo.description = this.textTodo;
@@ -165,7 +161,6 @@ form {
   gap: 1em;
   margin: auto;
   justify-content: center;
-  margin-inline: 3em;
 }
 
 .input-todo-description::placeholder {
@@ -182,7 +177,6 @@ form {
   justify-content: start;
   margin-block: 1em;
   align-items: center;
-  margin-inline: 3em;
 }
 
 .filter-container {
@@ -190,7 +184,7 @@ form {
   margin: 1em;
   padding: 0.5em;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   border-radius: 5px;
   border: 2px solid var(--color-accent-blue);
@@ -200,15 +194,24 @@ form {
     display: grid;
     gap: 40px;
     grid-template-columns: auto 1fr;
+    position: relative;
   }
   .filter-container {
-    flex-direction: column;
-    justify-content: start;
+    display: block;
+  }
+  .filters {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
   }
 }
 .error-todo {
   color: var(--color-accent-pink);
   text-align: center;
   font-size: 0.5em;
+}
+
+.todo-area {
+  padding-inline: 3em;
 }
 </style>

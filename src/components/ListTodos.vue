@@ -50,13 +50,16 @@ ul {
   flex-direction: column;
   margin: auto;
   padding: 0;
-  margin-left: 3em;
+
+  list-style-position: unset;
 }
 li {
   list-style: none;
+  all: unset;
+  margin: 0;
   background-color: var(--color-bg-input);
   border-radius: 5px;
-  margin-right: 3em;
+
   padding-block: 0.5em;
   padding-inline: 0.5em;
   border: 0.1em solid var(--color-bg);
